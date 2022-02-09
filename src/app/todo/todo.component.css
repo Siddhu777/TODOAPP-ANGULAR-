@@ -1,0 +1,16 @@
+.navbar{
+    padding: 10px;
+}
+.container-fluid {
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    /* height: 100vh; */
+  }
+  .custom-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 9px rgba(1, 1, 1, 0.05);
+    padding: 30px;
+    width: 400px;
+  }

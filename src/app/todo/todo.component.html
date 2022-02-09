@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+    <a class="navbar-brand" href="#">TODO APP</a>
+    <button class="btn btn-block btn-danger " (click)="signOut()">Sign out</button>
+</nav>
+
+
+<div class="container-fluid mt-2">
+    <div class="custom-card">
+        <form #todoForm="ngForm">
+            <div class="text-center" class="form-group mb-2">
+                <input type="hidden" name="IsComplete" [ngModel]="isComplete">
+                <label class="form-check-label" for="exampleInputEmail1">What needs to be done?</label>
+                <input type="text" class="form-control" name="Description" ngModel required>
+            </div>
+            <button class="form-control btn btn-secondary btn-lg btn-block mb-3"
+                (click)="addNewToDoList(todoForm.value)" [disabled]="todoForm.form.invalid">Add</button>
+        </form>
+
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-sm">
+                    <button type="button" class="btn btn-outline-secondary" (click)="filtAll()">All</button>
+                </div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-outline-secondary" (click)="filtActive()">Active</button>
+                </div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-outline-secondary" (click)="filtComplete()">Complete</button>
+                </div>
+            </div>
+            <ng-container *ngIf="todoInterface">
+                <div class="container mt-2">
+                    <div class="row p-1" *ngFor="let task of todoInterface | category:searchValue">
+                        <div class="form-check col-sm-2">
+                            <input class="form-check-input" name="IsComplete" [(ngModel)]="task.IsComplete" type="checkbox"
+                                value="">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>{{task.Description}}</label>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-default danger"
+                                (click)="edit(task.TaskId);fnEditToDoForm(frmTDTemp)">
+                                Edit
+                            </button>
+    
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-default"
+                                (click)="fnDeleteToDo(task.TaskId)">Delete</button>
+                        </div>
+                    </div>
+    
+                </div>
+            </ng-container>
+           
+
+            <div class="container mt-2">
+                <ng-template #frmTDTemp>
+                    <form #updatetodoForm="ngForm">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <input class="form-check-input center" name="IsComplete"
+                                    [(ngModel)]="singeToDo[0].IsComplete" type="checkbox" >
+                            </div>
+                            <div class="col-sm-10 ">
+                                <input type="text" class="form-control mb-5" name="Description"
+                                    [(ngModel)]="singeToDo[0].Description">
+
+                            </div>
+                        </div>
+                        <button class="form-control btn btn-secondary btn-lg btn-block mb-3" mat-dialog-close
+                            (click)="fnUpdateSingleToDo(updatetodoForm.value)">Update</button>
+                    </form>
+                </ng-template>
+            </div>
+
+        </div>
+        <div class="row p-1">
+            <div class="col-md-5">
+                <button class="form-control btn btn-secondary btn-block mb-3" (click)="fnCheckAllTodo()">Check
+                    All</button>
+            </div>
+            <div class="col-md-7">
+                <button class="form-control btn btn-secondary  btn-block mb-3"
+                    (click)="fnRemoveAllCompletedToDo()">Remove Completed</button>
+            </div>
+        </div>
+        <!-- <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <button type="button" class="btn btn-outline-secondary m-2">All</button>
+                <div>
+                    <h1>hello</h1>
+                </div>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn btn-outline-secondary m-2">Pending</button>
+                <span>hhh</span>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="btn btn-outline-secondary m-2">Completed</button>
+                <h3>hjj</h3>
+            </li>
+          </ul> -->
+    </div>
+</div>
